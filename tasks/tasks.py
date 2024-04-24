@@ -59,7 +59,7 @@ class Tasks:
                 "Conduct a comprehensive analisys of the json file provided by the project manager."
                 "For each key in the json file, determine if a search is needed."
                 "If you don't think a research is needed for a key, skip it."
-                "If you think a search is needed, use the SerperDevTool to search the web for information related to the key."
+                "If you think a search is needed, use the DuckDuckGo tool to search the web for information related to the key."
                 "for each key that require a search, modify the json file to include the search results as a list of relevant information."
                 "here is an exemple of the initial json file: \n"
                 """{

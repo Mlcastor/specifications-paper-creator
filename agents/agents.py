@@ -1,18 +1,20 @@
 import os
 from dotenv import load_dotenv
+import sys
 
-from utils.utils import print_agent_output
+sys.path.insert(0, "D:\AI_Agents_Projects\specifications-paper-creator")
+
+from utils.utils import print_agent_output, search_tool
 
 from crewai import Agent
 from langchain_groq import ChatGroq
-from crewai_tools import SerperDevTool
+
 
 load_dotenv()
 
 GROQ_LLM = ChatGroq(api_key=os.getenv("GROQ_API_KEY"), model="llama3-70b-8192")
-SERPER_API_KEY = os.getenv("SERPER_API_KEY")
 
-search_tool = SerperDevTool(api_key=SERPER_API_KEY)
+search_tool = search_tool()
 
 
 # Create the agents

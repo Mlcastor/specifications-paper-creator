@@ -3,9 +3,13 @@ from typing import Union, List, Tuple, Dict
 
 from langchain_core.agents import AgentFinish
 from langchain.schema import AgentFinish
+from crewai_tools import BaseTool
+from langchain_community.tools import DuckDuckGoSearchRun
 
 agent_finishes = []
 call_number = 0
+
+search = DuckDuckGoSearchRun()
 
 
 def print_agent_output(
@@ -68,3 +72,11 @@ def print_agent_output(
             print(f"-{call_number}-Unknown format of agent_output:", file=log_file)
             print(type(agent_output), file=log_file)
             print(agent_output, file=log_file)
+
+
+class search_tool(BaseTool):
+    name: str = "search_tool"
+    description: str = "Search the web for information related to the key."
+
+    def _run(self, *args: json.Any, **kwargs: json.Any) -> json.Any:
+        return search.run(*args, **kwargs)
