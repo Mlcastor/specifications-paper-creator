@@ -11,14 +11,14 @@ load_dotenv()
 GROQ_LLM = ChatGroq(api_key=os.getenv("GROQ_API_KEY"), model="llama3-70b-8192")
 
 
-# Create the project manager agent
-class project_manager(Agent):
+# Create the writer agent
+class writer(Agent):
     def __init__(self):
         super().__init__(
-            role="project manager agent",
-            goal="Gather information about the project by asking questions to the client to tailor a specification document.",
+            role="writer agent",
+            goal="Write a specification document based on the information gathered by the project manager and researcher.",
             backstory=(
-                "you are the project manager of a software development team. You have been tasked with gathering information about the project from the client to tailor a specification document."
+                "you are the writer of a software development team. You have been tasked with writing a specification document based on the information gathered by the project manager and researcher."
                 "here is an exemple of a specification document: \n"
                 """### Software Specification Document Structure
 
@@ -128,5 +128,5 @@ class project_manager(Agent):
             allow_delegation=False,
             max_iter=5,
             memory=True,
-            step_callback=lambda x: print_agent_output(x, "project manager agent"),
+            step_callback=lambda x: print_agent_output(x, "writer agent"),
         )
