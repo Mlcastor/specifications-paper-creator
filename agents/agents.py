@@ -206,7 +206,7 @@ class Agents:
 
                         ##### 7.2 System Features
 
-                        - For each system feature, provide:
+                        - For each  system feature, provide:
                             - **Description**
                             - **Functionality**
                             - **User Interactions**
@@ -375,7 +375,7 @@ class Agents:
 
                         - **Sign-off:** Signature lines for approval by key stakeholders.
 
-                        This structure is meant to be a guide and depending on the complexity of the project, some sections might be expanded, while others could be minimized or omitted. The most important aspect of a specifications document is clarity and the alignment it brings amongst the project team and stakeholders. Ensure that it is revisited and updated as the project evolves."""
+                        This structure is meant to be a guide and depending on the complexity of the project, some sections might be expanded, while others could be minimized or omitted. The most important aspect of a specifications document is clarity and the alignment it brings amongst the project team and stakeholders. Ensure that nothing is missing."""
             ),
             llm=GROQ_LLM,
             verbose=True,

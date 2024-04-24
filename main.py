@@ -1,24 +1,26 @@
-from agents import project_manager, researcher, writer
-from tasks import PM_tasks, searcher_tasks, writer_tasks
+from agents.agents import Agents
+from tasks.tasks import Tasks
 
 from crewai import Crew, Process
 
 # instanciate the agents
-project_manager_agent = project_manager()
-researcher_agent = researcher()
-writer_agent = writer()
+agents = Agents()
+tasks = Tasks()
 
-# instanciate the tasks
-pm_tasks = PM_tasks()
-search = searcher_tasks()
-write = writer_tasks()
+# Agents
+project_manager_agent = agents.project_manager()
+researcher_agent = agents.researcher()
+writer_agent = agents.writer()
+reviewer_agent = agents.reviewer()
+
+# Tasks
+initial_questions = tasks.initial_questions()
+research = tasks.comprehensive_analysis()
+write_specification = tasks.write_specification()
+review_specification = tasks.review_specification()
 
 # create the crew
 crew = Crew(
     agents=[project_manager_agent, researcher_agent, writer_agent],
-    tasks=[
-        pm_tasks.initial_questions(),
-        search.comprehensive_analysis(),
-        write.write_specification(),
-    ],
+    tasks=[],
 )

@@ -1,7 +1,7 @@
 from crewai import Task
 
 
-class tasks:
+class Tasks:
     def initial_questions(self, agent):
         return Task(
             description=(
@@ -150,5 +150,20 @@ class tasks:
             output_file="specification_document.md",
             agent=agent,
             expected_output="a .md file with the specification document.",
+            context=[context],
+        )
+
+    def review_specification(self, agent, context):
+        return Task(
+            description=(
+                "Review the specification document created by the writer."
+                "Check for grammar, spelling, and formatting errors."
+                "Make sure that the document follows the structure outlined in the specification document example."
+                "Provide feedback on the content of the document."
+                "The review should be output as a .txt file."
+            ),
+            output_file="review.txt",
+            agent=agent,
+            expected_output="a .txt file with the review of the specification document.",
             context=[context],
         )
