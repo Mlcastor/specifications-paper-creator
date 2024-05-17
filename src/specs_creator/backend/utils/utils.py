@@ -78,5 +78,5 @@ class search_tool(BaseTool):
     name: str = "search_tool"
     description: str = "Search the web for information related to the key."
 
-    def _run(self, *args: json.Any, **kwargs: json.Any) -> json.Any:
-        return search.run(*args, **kwargs)
+    def _run(self, input_data: str) -> str:
+        return search.run(input_data)
