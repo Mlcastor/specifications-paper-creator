@@ -21,7 +21,7 @@ reviewer_agent = agents.reviewer()
 # Tasks
 initial_questions = tasks.initial_questions(project_manager_agent)
 research = tasks.comprehensive_analysis(researcher_agent, initial_questions)
-write_specification = tasks.write_specification(writer_agent, research)
+write_specification = tasks.write_specification(writer_agent, initial_questions)
 review_specification = tasks.review_specification(reviewer_agent, write_specification)
 
 # create the crew

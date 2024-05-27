@@ -5,12 +5,11 @@ import os
 print(f"Current Working Directory: {os.getcwd()}")
 sys.path.insert(0, "D:\AI_Agents_Projects\specifications-paper-creator")
 
-sys.path.append("src")
 from specs_creator.backend.tools.input_tool import InputTool
 
 input_tool = InputTool(
     "InputTool",
-    config_path="specs_creator\\backend\\tools\\config\\tool_config.yaml",
+    config_path="src/specs_creator/backend/config/tool_config.yaml",
 )
 
 
