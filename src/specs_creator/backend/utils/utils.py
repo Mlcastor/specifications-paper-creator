@@ -1,82 +1,75 @@
 import json
+import logging
+from logging.handlers import RotatingFileHandler
 from typing import Union, List, Tuple, Dict
 
 from langchain_core.agents import AgentFinish
 from langchain.schema import AgentFinish
-from crewai_tools import BaseTool
-from langchain_community.tools import DuckDuckGoSearchRun
+
+# Setup logging
+log_directory = "./src/specs_creator/backend/logs/"
+log_filename = "crew_callback_logs.txt"
+log_path = log_directory + log_filename
+
+# Create logger
+logger = logging.getLogger("AgentLogger")
+logger.setLevel(logging.DEBUG)  # Set to DEBUG for more detailed logging
+
+# Create file handler which logs even debug messages
+fh = RotatingFileHandler(log_path, maxBytes=10485760, backupCount=5)  # 10MB per file
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+fh.setFormatter(formatter)
+logger.addHandler(fh)
+
+# Create console handler with the same log level
+ch = logging.StreamHandler()
+ch.setFormatter(formatter)
+logger.addHandler(ch)
 
 agent_finishes = []
 call_number = 0
-
-search = DuckDuckGoSearchRun()
 
 
 def print_agent_output(
     agent_output: Union[str, List[Tuple[Dict, str]], AgentFinish],
     agent_name: str = "Generic call",
 ):
-    global call_number  # Declare call_number as a global variable
+    global call_number
     call_number += 1
-    with open("crew_callback_logs.txt", "a") as log_file:
-        # Try to parse the output if it is a JSON string
+    try:
         if isinstance(agent_output, str):
-            try:
-                agent_output = json.loads(
-                    agent_output
-                )  # Attempt to parse the JSON string
-            except json.JSONDecodeError:
-                pass  # If there's an error, leave agent_output as is
+            agent_output = json.loads(agent_output)  # Try to parse the JSON string
+    except json.JSONDecodeError:
+        pass  # If there's an error, leave agent_output as is
 
-        # Check if the output is a list of tuples as in the first case
+        log_message = f"-{call_number}------------------------------------------\n"
+
         if isinstance(agent_output, list) and all(
             isinstance(item, tuple) for item in agent_output
         ):
-            print(
-                f"-{call_number}----Dict------------------------------------------",
-                file=log_file,
-            )
             for action, description in agent_output:
-                # Print attributes based on assumed structure
-                print(f"Agent Name: {agent_name}", file=log_file)
-                print(f"Tool used: {getattr(action, 'tool', 'Unknown')}", file=log_file)
-                print(
-                    f"Tool input: {getattr(action, 'tool_input', 'Unknown')}",
-                    file=log_file,
-                )
-                print(f"Action log: {getattr(action, 'log', 'Unknown')}", file=log_file)
-                print(f"Description: {description}", file=log_file)
-                print(
-                    "--------------------------------------------------", file=log_file
+                log_message += (
+                    f"Agent Name: {agent_name}\n"
+                    f"Tool used: {getattr(action, 'tool', 'Unknown')}\n"
+                    f"Tool input: {getattr(action, 'tool_input', 'Unknown')}\n"
+                    f"Action log: {getattr(action, 'log', 'Unknown')}\n"
+                    f"Description: {description}\n"
+                    "--------------------------------------------------\n"
                 )
 
-        # Check if the output is a dictionary as in the second case
         elif isinstance(agent_output, AgentFinish):
-            print(
-                f"-{call_number}----AgentFinish---------------------------------------",
-                file=log_file,
-            )
-            print(f"Agent Name: {agent_name}", file=log_file)
             agent_finishes.append(agent_output)
-            # Extracting 'output' and 'log' from the nested 'return_values' if they exist
             output = agent_output.return_values
-            # log = agent_output.get('log', 'No log available')
-            print(f"AgentFinish Output: {output['output']}", file=log_file)
-            # print(f"Log: {log}", file=log_file)
-            # print(f"AgentFinish: {agent_output}", file=log_file)
-            print("--------------------------------------------------", file=log_file)
+            log_message += (
+                f"Agent Name: {agent_name}\n"
+                f"AgentFinish Output: {output['output']}\n"
+                "--------------------------------------------------\n"
+            )
 
-        # Handle unexpected formats
         else:
-            # If the format is unknown, print out the input directly
-            print(f"-{call_number}-Unknown format of agent_output:", file=log_file)
-            print(type(agent_output), file=log_file)
-            print(agent_output, file=log_file)
+            log_message += f"Unknown format of agent_output: {type(agent_output)}\n{agent_output}\n"
 
+        logger.info(log_message)
 
-class search_tool(BaseTool):
-    name: str = "search_tool"
-    description: str = "Search the web for information related to the key."
-
-    def _run(self, input_data: str) -> str:
-        return search.run(input_data)
+    except Exception as e:
+        logger.error(f"Error in print_agent_output: {str(e)}")

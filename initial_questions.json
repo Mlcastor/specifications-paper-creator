@@ -1,0 +1,90 @@
+{
+    "Cover Page": [
+        {
+            "question": "What is the project name?",
+            "response": "The project is named 'E-commerce Platform'"
+        },
+        {
+            "question": "What is the document version?",
+            "response": "The document version is 1.0"
+        },
+        {
+            "question": "What is the date?",
+            "response": "The date is 2023-02-15"
+        },
+        {
+            "question": "Who prepared the document?",
+            "response": "The document was prepared by the project manager"
+        }
+    ],
+    "Introduction": [
+        {
+            "question": "What is the purpose of the software?",
+            "response": "The purpose of the software is to provide an e-commerce platform for customers to purchase products online"
+        },
+        {
+            "question": "What is the scope of the software?",
+            "response": "The scope of the software includes developing an e-commerce platform with features for product management, order management, and payment processing"
+        },
+        {
+            "question": "What are the definitions and acronyms used in the project?",
+            "response": "The definitions and acronyms used in the project are: API - Application Programming Interface, UI - User Interface, UX - User Experience"
+        }
+    ],
+    "Overall Description": [
+        {
+            "question": "What is the product perspective?",
+            "response": "The product perspective is to provide an e-commerce platform that integrates with third-party APIs for payment processing and product management"
+        },
+        {
+            "question": "What are the product functions?",
+            "response": "The product functions include product management, order management, payment processing, and user management"
+        },
+        {
+            "question": "Who are the end-users of the software?",
+            "response": "The end-users of the software are customers, administrators, and moderators"
+        },
+        {
+            "question": "What is the operating environment?",
+            "response": "The operating environment includes a web-based platform using HTML, CSS, and JavaScript, with a backend API built using Node.js and MongoDB"
+        }
+    ],
+    "Detailed Requirements": [
+        {
+            "question": "What are the functional requirements?",
+            "response": "The functional requirements include user registration, product listing, shopping cart, payment processing, and order management"
+        },
+        {
+            "question": "What are the non-functional requirements?",
+            "response": "The non-functional requirements include performance, security, usability, reliability, scalability, and maintainability"
+        }
+    ],
+    "External Interface Requirements": [
+        {
+            "question": "What are the user interfaces?",
+            "response": "The user interfaces include a web-based platform for customers and administrators"
+        },
+        {
+            "question": "What are the hardware interfaces?",
+            "response": "The hardware interfaces include servers, databases, and third-party APIs"
+        }
+    ],
+    "System Models": [
+        {
+            "question": "What are the use cases?",
+            "response": "The use cases include user registration, product listing, shopping cart, payment processing, and order management"
+        }
+    ],
+    "Design Constraints": [
+        {
+            "question": "What are the standard compliance requirements?",
+            "response": "The standard compliance requirements include GDPR, PCI-DSS, and OWASP"
+        }
+    ],
+    "Quality Assurance Requirements": [
+        {
+            "question": "What are the testing strategies?",
+            "response": "The testing strategies include unit testing, integration testing, and user acceptance testing"
+        }
+    ]
+}

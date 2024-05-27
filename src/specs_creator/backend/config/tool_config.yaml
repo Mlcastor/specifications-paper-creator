@@ -1,0 +1,3 @@
+InputTool:
+  description: "Prompts the user for information and returns their input."
+  name: "inputtool"

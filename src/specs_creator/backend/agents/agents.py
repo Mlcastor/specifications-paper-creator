@@ -4,7 +4,8 @@ import sys
 
 sys.path.insert(0, "D:\AI_Agents_Projects\specifications-paper-creator")
 
-from utils.utils import print_agent_output, search_tool
+from specs_creator.backend.utils.utils import print_agent_output
+from specs_creator.backend.tools.input_tool import InputTool
 
 from crewai import Agent
 from langchain_groq import ChatGroq
@@ -14,7 +15,8 @@ load_dotenv()
 
 GROQ_LLM = ChatGroq(api_key=os.getenv("GROQ_API_KEY"), model="llama3-70b-8192")
 
-search_tool = search_tool()
+config_path = "src/specs_creator/backend/config/tool_config.yaml"
+input_tool = InputTool(tool_name="InputTool", config_path=config_path)
 
 
 # Create the agents
@@ -132,8 +134,9 @@ class Agents:
             llm=GROQ_LLM,
             verbose=True,
             allow_delegation=False,
-            max_iter=5,
+            max_iter=15,
             memory=True,
+            tool=input_tool,
             step_callback=lambda x: print_agent_output(x, "project manager agent"),
         )
 
@@ -147,7 +150,6 @@ class Agents:
             allow_delegation=False,
             max_iter=5,
             memory=True,
-            tool=search_tool,
             step_callback=lambda x: print_agent_output(x, "researcher agent"),
         )
 

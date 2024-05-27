@@ -1,4 +1,17 @@
 from crewai import Task
+import sys
+import os
+
+print(f"Current Working Directory: {os.getcwd()}")
+sys.path.insert(0, "D:\AI_Agents_Projects\specifications-paper-creator")
+
+sys.path.append("src")
+from specs_creator.backend.tools.input_tool import InputTool
+
+input_tool = InputTool(
+    "InputTool",
+    config_path="specs_creator\\backend\\tools\\config\\tool_config.yaml",
+)
 
 
 class Tasks:
@@ -50,7 +63,7 @@ class Tasks:
             output_file=f"initial_questions.json",
             agent=agent,
             expected_output="a json file with the questions and responses. Sorted by category.",
-            human_input=True,
+            tools=[input_tool],
         )
 
     def comprehensive_analysis(self, agent, context):
